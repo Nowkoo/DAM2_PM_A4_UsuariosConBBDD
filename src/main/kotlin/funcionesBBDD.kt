@@ -68,7 +68,12 @@ fun actualizarEdadUsuarioBBDD(conexion: Connection, id: Int, nuevaEdad: Int) {
     val sqlActualizar = "UPDATE Usuarios set edad = $nuevaEdad where id = $id;"
     try {
         val statement = conexion.createStatement()
-        statement.executeUpdate(sqlActualizar)
+        val filasModificadas = statement.executeUpdate(sqlActualizar)
+        if (filasModificadas > 0) {
+            println("Edad actualizada")
+        } else {
+            println("El usuario seleccionado no existe")
+        }
     } catch (e: SQLException) {
         println("Error al actualizar usuarios: ${e.message}")
     }
@@ -79,7 +84,12 @@ fun eliminarUsuarioBBDD(conexion: Connection, id: Int) {
     val sqlDelete = "DELETE FROM Usuarios WHERE id = $id;"
     try {
         val statement = conexion.createStatement()
-        statement.executeUpdate(sqlDelete)
+        val filasEliminadas = statement.executeUpdate(sqlDelete)
+        if (filasEliminadas > 0) {
+            println("Usuario eliminado")
+        } else {
+            println("El usuario seleccionado no existe")
+        }
     } catch (e: SQLException) {
         println("Error al eliminar usuarios: ${e.message}")
     }
